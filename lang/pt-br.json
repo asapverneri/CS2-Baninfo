@@ -3,7 +3,6 @@
 
   "console.name": "Nome:",
   "console.steamid": "SteamID:",
-  "console.bans": "Bans:",
+  "console.bans": "Banimentos:",
   "console.mutes": "Mutes:"
-
 } 

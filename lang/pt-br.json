@@ -1,0 +1,9 @@
+{
+  "playerinfoavailable": "{green}[CS2Baninfo] {yellow}Info sobre {0} está no seu console.",
+
+  "console.name": "Nome:",
+  "console.steamid": "SteamID:",
+  "console.bans": "Bans:",
+  "console.mutes": "Mutes:"
+
+} 

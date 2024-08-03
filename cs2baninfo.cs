@@ -16,7 +16,7 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
     public override string ModuleName => "CS2 Baninfo";
     public override string ModuleDescription => "Prints info about connected players in console";
     public override string ModuleAuthor => "verneri";
-    public override string ModuleVersion => "1.0.0";
+    public override string ModuleVersion => "1.0.1";
 
     public void OnConfigParsed(CS2baninfoConfig config)
 	{

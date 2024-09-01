@@ -25,5 +25,8 @@ namespace CS2baninfo
         [JsonPropertyName("Adminflag")]
         public string Adminflag { get; set; } = "@css/ban";
 
+        [JsonPropertyName("PrintInfoToConsole")]
+        public bool PrintInfoToConsole { get; set; } = true;
+
     }
 }

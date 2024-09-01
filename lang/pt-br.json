@@ -4,5 +4,13 @@
   "console.name": "Nome:",
   "console.steamid": "SteamID:",
   "console.bans": "Banimentos:",
-  "console.mutes": "Mutes:"
+  "console.mutes": "Mutes:",
+
+  "chat.name": "{green}[CS2Baninfo] {yellow}Nome:",
+  "chat.steamid": "{green}[CS2Baninfo] {yellow}SteamID:",
+  "chat.bans": "{green}[CS2Baninfo] {yellow}Banimentos:",
+  "chat.mutes": "{green}[CS2Baninfo] {yellow}Mutes:",
+
+  "top": "===========CS2_Baninfo===========",
+  "bottom": "================================="
 } 

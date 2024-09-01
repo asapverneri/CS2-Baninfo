@@ -16,7 +16,7 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
     public override string ModuleName => "CS2 Baninfo";
     public override string ModuleDescription => "Prints info about connected players in console";
     public override string ModuleAuthor => "verneri";
-    public override string ModuleVersion => "1.0.1";
+    public override string ModuleVersion => "1.0.2";
 
     public void OnConfigParsed(CS2baninfoConfig config)
 	{
@@ -89,15 +89,26 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
 
             foreach (var admin in admins)
             {
+                if (Config.PrintInfoToConsole == true) {
                 //notify admins to check console
                 admin.PrintToChat($"{Localizer["playerinfoavailable", Name]}");
                 //Console info
-                admin.PrintToConsole($"===========CS2_Baninfo===========");
+                admin.PrintToConsole($"{Localizer["top"]}");
                 admin.PrintToConsole($"{Localizer["console.name"]} {Name}");
                 admin.PrintToConsole($"{Localizer["console.steamid"]} {steamid}");
                 admin.PrintToConsole($"{Localizer["console.bans"]} {bansCount}");
                 admin.PrintToConsole($"{Localizer["console.mutes"]} {mutesCount}");
-                admin.PrintToConsole($"=================================");
+                admin.PrintToConsole($"{Localizer["bottom"]}");
+                } else
+                {
+                    admin.PrintToChat($"{Localizer["top"]}");
+                    admin.PrintToChat($"{Localizer["chat.name"]} {Name}");
+                    admin.PrintToChat($"{Localizer["chat.steamid"]} {steamid}");
+                    admin.PrintToChat($"{Localizer["chat.bans"]} {bansCount}");
+                    admin.PrintToChat($"{Localizer["chat.mutes"]} {mutesCount}");
+                    admin.PrintToChat($"{Localizer["bottom"]}");
+
+                }
             }
 
         }

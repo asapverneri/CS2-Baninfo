@@ -28,5 +28,11 @@ namespace CS2baninfo
         [JsonPropertyName("PrintInfoToConsole")]
         public bool PrintInfoToConsole { get; set; } = true;
 
+        [JsonPropertyName("PrintInfoToChat")]
+        public bool PrintInfoToChat { get; set; } = false;
+
+        [JsonPropertyName("PrintInfoToCenter")]
+        public bool PrintInfoToCenter { get; set; } = false;
+
     }
 }

@@ -1,17 +1,25 @@
 {
   "playerinfoavailable": "{green}[CS2Baninfo] {yellow}Info about {0} is in your console.",
 
+  "console.top": "===========CS2_Baninfo===========",
   "console.name": "Name:",
   "console.steamid": "SteamID:",
   "console.bans": "Bans:",
   "console.mutes": "Mutes:",
+  "console.bottom": "=================================",
 
+  "chat.top": "===========CS2_Baninfo===========",
   "chat.name": "{green}[CS2Baninfo] {yellow}Name:",
   "chat.steamid": "{green}[CS2Baninfo] {yellow}SteamID:",
   "chat.bans": "{green}[CS2Baninfo] {yellow}Bans:",
   "chat.mutes": "{green}[CS2Baninfo] {yellow}Mutes:",
+  "chat.bottom": "=================================",
 
-  "top": "===========CS2_Baninfo===========",
-  "bottom": "================================="
+  "center.top": "<b><font color='red'>=========CS2_Baninfo=========</font><b/>",
+  "center.name": "<b><font color='white'>Name:</font></font><b/>",
+  "center.steamid": "<b><font color='white'>SteamID:</font><b/>",
+  "center.bans": "<b><font color='white'>Bans:</font><b/>",
+  "center.mutes": "<b><font color='white'>Mutes:</font><b/>",
+  "center.bottom": "<b><font color='red'>=============================</font><b/>"
 
 } 

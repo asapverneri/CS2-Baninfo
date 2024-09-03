@@ -35,6 +35,9 @@ Located in the folder `counterstrikesharp/configs/plugins/cs2baninfo`
   "DatabasePassword": "password",
   "DatabaseName": "name",
   "Adminflag": "@css/root",
+  "PrintInfoToConsole": true,
+  "PrintInfoToChat": false,
+  "PrintInfoToCenter": false,
   "ConfigVersion": 1
 }
 ```

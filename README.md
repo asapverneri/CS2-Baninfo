@@ -4,7 +4,7 @@ Useful plugin that shows connected players ban & mute history in console. It has
 Tested on Windows, but should work on Linux aswell.
 
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/asapverneri/CS2-Baninfo?style=for-the-badge&label=Version)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/asapverneri/CS2-Baninfo/dev?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/asapverneri/CS2-Baninfo?style=for-the-badge)
 
 > [!CAUTION]  
 > This plugin is compatible with CS2-SimpleAdmin only.

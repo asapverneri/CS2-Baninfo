@@ -6,6 +6,7 @@
   "console.steamid": "SteamID:",
   "console.bans": "Banimentos:",
   "console.mutes": "Mutes:",
+  "console.gags": "Gags:",
   "console.bottom": "=================================",
 
   "chat.top": "===========CS2_Baninfo===========",
@@ -13,6 +14,7 @@
   "chat.steamid": "{green}[CS2Baninfo] {yellow}SteamID:",
   "chat.bans": "{green}[CS2Baninfo] {yellow}Banimentos:",
   "chat.mutes": "{green}[CS2Baninfo] {yellow}Mutes:",
+  "chat.gags": "{green}[CS2Baninfo] {yellow}Gags:",
   "chat.bottom": "=================================",
 
   "center.top": "<b><font color='red'>=========CS2_Baninfo=========</font><b/>",
@@ -20,5 +22,6 @@
   "center.steamid": "<b><font color='white'>SteamID:</font><b/>",
   "center.bans": "<b><font color='white'>Banimentos:</font><b/>",
   "center.mutes": "<b><font color='white'>Mutes:</font><b/>",
+  "center.gags": "<b><font color='white'>Gags:</font><b/>",
   "center.bottom": "<b><font color='red'>=============================</font><b/>"
 } 

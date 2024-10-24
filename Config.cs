@@ -5,7 +5,6 @@ namespace CS2baninfo
 {
     public class CS2baninfoConfig : BasePluginConfig
     {
-        public override int Version { get; set; } = 1;
 
 		[JsonPropertyName("DatabaseHost")]
 		public string DatabaseHost { get; set; } = "";
@@ -21,6 +20,9 @@ namespace CS2baninfo
 
         [JsonPropertyName("DatabaseName")]
         public string DatabaseName { get; set; } = "";
+
+        [JsonPropertyName("AdminPluginType")]
+        public int AdminPlugin { get; set; } = 1;
 
         [JsonPropertyName("Adminflag")]
         public string Adminflag { get; set; } = "@css/ban";

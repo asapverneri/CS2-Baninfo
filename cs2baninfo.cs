@@ -16,7 +16,7 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
     public override string ModuleName => "CS2 Baninfo";
     public override string ModuleDescription => "Prints info about connected players in console";
     public override string ModuleAuthor => "verneri";
-    public override string ModuleVersion => "1.0.3";
+    public override string ModuleVersion => "1.0.4";
 
     public void OnConfigParsed(CS2baninfoConfig config)
 	{
@@ -25,7 +25,14 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
 
     public override void Load(bool hotReload)
     {
-        Logger.LogInformation($"[{ModuleName}] Loaded (version {ModuleVersion})");
+        Logger.LogInformation($"Loaded (version {ModuleVersion})");
+
+        if (Config.AdminPlugin != 1 && Config.AdminPlugin != 2 && Config.AdminPlugin != 3)
+        {
+
+            Logger.LogError($"AdminPluginType is invalid!");
+            Logger.LogError($"Correct values: 1 = SimpleAdmin, 2 = cs2-admin, 3 = iks_admin");
+        }
     }
 
     private string GetConnectionString()
@@ -57,6 +64,7 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
         {
             int bansCount = 0;
             int mutesCount = 0;
+            int gagsCount = 0;
 
             try
             {
@@ -64,13 +72,30 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
                 {
                     connection.Open();
 
+                    if (Config.AdminPlugin == 1) //SimplAadmin
+                    {
+                        string checkbansQuery = "SELECT COUNT(*) FROM sa_bans WHERE player_steamid = @SteamID";
+                        bansCount = connection.ExecuteScalar<int>(checkbansQuery, new { SteamID = steamid });
 
-                    string checkbansQuery = "SELECT COUNT(*) FROM sa_bans WHERE player_steamid = @SteamID";
-                    bansCount = connection.ExecuteScalar<int>(checkbansQuery, new { SteamID = steamid });
+                        string checkmutesQuery = "SELECT COUNT(*) FROM sa_mutes WHERE player_steamid = @SteamID";
+                        mutesCount = connection.ExecuteScalar<int>(checkmutesQuery, new { SteamID = steamid });
+                    }
+                    if (Config.AdminPlugin == 2) //cs2-admin
+                    {
+                        string checkbansQuery = "SELECT COUNT(*) FROM baseban WHERE steamid = @SteamID";
+                        bansCount = connection.ExecuteScalar<int>(checkbansQuery, new { SteamID = steamid });
+                    }
+                    if (Config.AdminPlugin == 3) //Iks_admin
+                    {
+                        string checkbansQuery = "SELECT COUNT(*) FROM iks_bans WHERE sid = @SteamID";
+                        bansCount = connection.ExecuteScalar<int>(checkbansQuery, new { SteamID = steamid });
 
+                        string checkmutesQuery = "SELECT COUNT(*) FROM iks_mutes WHERE sid = @SteamID";
+                        mutesCount = connection.ExecuteScalar<int>(checkmutesQuery, new { SteamID = steamid });
 
-                    string checkmutesQuery = "SELECT COUNT(*) FROM sa_mutes WHERE player_steamid = @SteamID";
-                    mutesCount = connection.ExecuteScalar<int>(checkmutesQuery, new { SteamID = steamid });
+                        string checkgagsQuery = "SELECT COUNT(*) FROM iks_gags WHERE sid = @SteamID";
+                        gagsCount = connection.ExecuteScalar<int>(checkgagsQuery, new { SteamID = steamid });
+                    }
 
                 }
             }
@@ -80,13 +105,26 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
                 return HookResult.Continue;
             }
 
+           var Historyalertsimple = $"{Localizer["center.top"]}<br>" +
+                   $"{Localizer["center.name"]} {Name}<br>" +
+                   $"{Localizer["center.steamid"]} {steamid}<br>" +
+                   $"{Localizer["center.bans"]} {bansCount}<br>" +
+                   $"{Localizer["center.mutes"]} {mutesCount}<br>" +
+                   $"{Localizer["center.bottom"]}";
 
-            var Historyalert = $"{Localizer["center.top"]}<br>" +
-                               $"{Localizer["center.name"]} {Name}<br>" +
-                               $"{Localizer["center.steamid"]} {steamid}<br>" +
-                               $"{Localizer["center.bans"]} {bansCount}<br>" +
-                               $"{Localizer["center.mutes"]} {mutesCount}<br>" +
-                               $"{Localizer["center.bottom"]}";
+            var Historyalertcs2admin = $"{Localizer["center.top"]}<br>" +
+                   $"{Localizer["center.name"]} {Name}<br>" +
+                   $"{Localizer["center.steamid"]} {steamid}<br>" +
+                   $"{Localizer["center.bans"]} {bansCount}<br>" +
+                   $"{Localizer["center.bottom"]}";
+
+            var Historyalertiks = $"{Localizer["center.top"]}<br>" +
+                   $"{Localizer["center.name"]} {Name}<br>" +
+                   $"{Localizer["center.steamid"]} {steamid}<br>" +
+                   $"{Localizer["center.bans"]} {bansCount}<br>" +
+                   $"{Localizer["center.mutes"]} {mutesCount}<br>" +
+                   $"{Localizer["center.gags"]} {gagsCount}<br>" +
+                   $"{Localizer["center.bottom"]}";
 
 
             foreach (var admin in admins)
@@ -99,7 +137,14 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
                 admin.PrintToConsole($"{Localizer["console.name"]} {Name}");
                 admin.PrintToConsole($"{Localizer["console.steamid"]} {steamid}");
                 admin.PrintToConsole($"{Localizer["console.bans"]} {bansCount}");
-                admin.PrintToConsole($"{Localizer["console.mutes"]} {mutesCount}");
+                    if(Config.AdminPlugin == 1 ||  Config.AdminPlugin == 2)
+                    {
+                        admin.PrintToConsole($"{Localizer["console.mutes"]} {mutesCount}");
+                    }
+                    if(Config.AdminPlugin == 3)
+                    {
+                        admin.PrintToConsole($"{Localizer["console.gags"]} {gagsCount}");
+                    }
                 admin.PrintToConsole($"{Localizer["console.bottom"]}");
                 } 
                 else if (printToChat)
@@ -108,7 +153,14 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
                     admin.PrintToChat($"{Localizer["chat.name"]} {Name}");
                     admin.PrintToChat($"{Localizer["chat.steamid"]} {steamid}");
                     admin.PrintToChat($"{Localizer["chat.bans"]} {bansCount}");
-                    admin.PrintToChat($"{Localizer["chat.mutes"]} {mutesCount}");
+                    if (Config.AdminPlugin == 1 || Config.AdminPlugin == 2)
+                    {
+                        admin.PrintToConsole($"{Localizer["chat.mutes"]} {mutesCount}");
+                    }
+                    if (Config.AdminPlugin == 3)
+                    {
+                        admin.PrintToConsole($"{Localizer["chat.gags"]} {gagsCount}");
+                    }
                     admin.PrintToChat($"{Localizer["chat.bottom"]}");
 
                 }
@@ -116,7 +168,23 @@ public partial class CS2baninfo : BasePlugin, IPluginConfig<CS2baninfoConfig>
                 {
                     AddTimer(2.0f, () =>
                     {
-                        admin.PrintToCenterHtml(Historyalert);
+                        if(Config.AdminPlugin == 1)
+                        {
+                            admin.PrintToCenterHtml(Historyalertsimple);
+                        }
+                        else if(Config.AdminPlugin == 2)
+                        {
+                            admin.PrintToCenterHtml(Historyalertcs2admin);
+                        }
+                        else if (Config.AdminPlugin == 3)
+                        {
+                            admin.PrintToCenterHtml(Historyalertiks);
+                        }
+                        else
+                        {
+                            Logger.LogError($"AdminPluginType is invalid!");
+                        }
+                        
                     });
                 }
             }
